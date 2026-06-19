@@ -1,0 +1,4 @@
+source "https://rubygems.org"
+
+gem "cocoapods"
+gem "concurrent-ruby", "< 1.3.5"

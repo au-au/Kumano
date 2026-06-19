@@ -1,0 +1,6 @@
+xcuserdata/
+*.xcuserstate
+.bundle/
+.bundle-tools/
+vendor/bundle/
+Pods/
