@@ -13,7 +13,7 @@ final class HostLobbyViewModel: NearbySessionServiceDelegate {
     private let nearby: NearbySessionService
     private(set) var connectedMembers: [Member] = []
 
-    var code: String { nearby.joinPayload?.code ?? "------" }
+    var code: String { nearby.joinPayload?.code ?? "----" }
     var qrPayload: String {
         guard let payload = nearby.joinPayload,
               let data = try? JSONEncoder().encode(payload) else { return "" }
@@ -246,10 +246,7 @@ final class HostLobbyViewController: BaseViewController {
     }
 
     private func formatted(code: String) -> String {
-        let normalized = String(code.filter { $0.isLetter || $0.isNumber })
-        guard normalized.count > 3 else { return normalized }
-        let index = normalized.index(normalized.startIndex, offsetBy: 3)
-        return "\(normalized[..<index]) \(normalized[index...])"
+        String(code.filter { $0.isNumber }.prefix(4))
     }
 
     private func qrImage(from string: String) -> UIImage? {

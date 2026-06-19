@@ -24,6 +24,7 @@ protocol NearbySessionService: AnyObject {
     var delegate: NearbySessionServiceDelegate? { get set }
     var joinPayload: JoinPayload? { get }
     var connectedPeerCount: Int { get }
+    var activeHostedAlbumID: UUID? { get }
 
     func startHosting(album: Album, profile: UserProfile)
     func stop()
@@ -49,6 +50,9 @@ final class MultipeerNearbySessionService: NSObject, NearbySessionService {
     weak var delegate: NearbySessionServiceDelegate?
     private(set) var joinPayload: JoinPayload?
     var connectedPeerCount: Int { session?.connectedPeers.count ?? 0 }
+    var activeHostedAlbumID: UUID? {
+        advertiser == nil ? nil : hostAlbum?.id
+    }
 
     private let serviceType = "kumano-album"
     private var peerID: MCPeerID?
@@ -61,6 +65,13 @@ final class MultipeerNearbySessionService: NSObject, NearbySessionService {
     private var pendingContext: Data?
 
     func startHosting(album: Album, profile: UserProfile) {
+        if activeHostedAlbumID == album.id {
+            hostAlbum = album
+            self.profile = profile
+            emit(.stateChanged(.hosting))
+            emit(.peersChanged(members()))
+            return
+        }
         stop()
         self.hostAlbum = album
         self.profile = profile
@@ -128,10 +139,15 @@ final class MultipeerNearbySessionService: NSObject, NearbySessionService {
         peerID = nil
         pendingPeer = nil
         pendingContext = nil
+        hostAlbum = nil
+        joinPayload = nil
         emit(.stateChanged(.offline))
     }
 
     func send(album: Album) {
+        if activeHostedAlbumID == album.id {
+            hostAlbum = album
+        }
         guard let session, !session.connectedPeers.isEmpty else { return }
         let message = WireMessage(kind: .album, album: album, photoID: nil)
         guard let data = try? JSONEncoder().encode(message) else { return }
@@ -171,12 +187,11 @@ final class MultipeerNearbySessionService: NSObject, NearbySessionService {
     }
 
     private static func normalized(_ code: String) -> String {
-        String(code.uppercased().filter { $0.isLetter || $0.isNumber })
+        String(code.filter { $0.isNumber }.prefix(4))
     }
 
     private static func randomCode() -> String {
-        let characters = Array("ABCDEFGHJKLMNPQRSTUVWXYZ23456789")
-        return String((0..<6).compactMap { _ in characters.randomElement() })
+        String(format: "%04d", Int.random(in: 0...9999))
     }
 
     private static func randomToken(length: Int) -> String {

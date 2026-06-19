@@ -81,10 +81,10 @@ final class JoinAlbumViewController: BaseViewController {
 
         segmented.selectedSegmentIndex = 0
         segmented.addTarget(self, action: #selector(modeChanged), for: .valueChanged)
-        codeField.placeholder = "ABC 123"
+        codeField.placeholder = "1234"
         codeField.font = .monospacedSystemFont(ofSize: 34, weight: .semibold)
         codeField.textAlignment = .center
-        codeField.autocapitalizationType = .allCharacters
+        codeField.keyboardType = .numberPad
         codeField.autocorrectionType = .no
         codeField.borderStyle = .roundedRect
         codeField.addTarget(self, action: #selector(codeChanged), for: .editingChanged)
@@ -125,16 +125,9 @@ final class JoinAlbumViewController: BaseViewController {
     }
 
     @objc private func codeChanged() {
-        let normalized = String((codeField.text ?? "").uppercased().filter { $0.isLetter || $0.isNumber })
-        if normalized.count <= 6 {
-            if normalized.count > 3 {
-                let index = normalized.index(normalized.startIndex, offsetBy: 3)
-                codeField.text = "\(normalized[..<index]) \(normalized[index...])"
-            } else {
-                codeField.text = normalized
-            }
-        }
-        if normalized.count == 6 { beginSearch(normalized) }
+        let normalized = String((codeField.text ?? "").filter { $0.isNumber }.prefix(4))
+        codeField.text = normalized
+        if normalized.count == 4 { beginSearch(normalized) }
     }
 
     private func beginSearch(_ code: String) {

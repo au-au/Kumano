@@ -21,6 +21,7 @@ final class AlbumDetailViewModel: NearbySessionServiceDelegate {
     private(set) var selectedContributorID: UUID?
 
     var isHost: Bool { album.localRole == .host }
+    var isActivelyHosting: Bool { nearby.activeHostedAlbumID == album.id }
     var sections: [PhotoSection] {
         let photos = selectedContributorID.map { id in album.photos.filter { $0.contributorID == id } } ?? album.photos
         let calendar = Calendar.current
@@ -53,12 +54,17 @@ final class AlbumDetailViewModel: NearbySessionServiceDelegate {
         photoLibrary: PhotoLibraryService,
         nearby: NearbySessionService
     ) {
-        self.album = repository.album(id: album.id) ?? album
         self.profile = profile
         self.repository = repository
         self.storage = storage
         self.photoLibrary = photoLibrary
         self.nearby = nearby
+        var storedAlbum = repository.album(id: album.id) ?? album
+        if storedAlbum.localRole == .host, nearby.activeHostedAlbumID != storedAlbum.id {
+            storedAlbum.connectionState = .offline
+            repository.saveAlbum(storedAlbum)
+        }
+        self.album = storedAlbum
     }
 
     func start() {
@@ -271,7 +277,20 @@ final class AlbumDetailViewController: BaseViewController {
             target: self,
             action: #selector(transfersTapped)
         )
-        navigationItem.rightBarButtonItems = [people, transfers]
+        var items = [people, transfers]
+        if viewModel.isHost {
+            let hosting = UIBarButtonItem(
+                image: UIImage(systemName: viewModel.isActivelyHosting ? "qrcode" : "person.badge.plus"),
+                style: .plain,
+                target: self,
+                action: #selector(hostingTapped)
+            )
+            hosting.accessibilityLabel = L10n.text(
+                viewModel.isActivelyHosting ? "album.showInvite" : "album.startHosting"
+            )
+            items.insert(hosting, at: 0)
+        }
+        navigationItem.rightBarButtonItems = items
     }
 
     private func configureCollection() {
@@ -362,6 +381,7 @@ final class AlbumDetailViewController: BaseViewController {
 
     private func render() {
         title = viewModel.album.name
+        configureNavigation()
         offlineBanner.isHidden = viewModel.album.connectionState == .connected || viewModel.album.connectionState == .hosting
         collectionView.reloadData()
         emptyView.isHidden = !viewModel.album.photos.isEmpty
@@ -416,6 +436,10 @@ final class AlbumDetailViewController: BaseViewController {
     }
 
     @objc private func transfersTapped() { onShowTransfers?() }
+
+    @objc private func hostingTapped() {
+        onStartHosting?(viewModel.album)
+    }
 
     private func showError(_ message: String) {
         let alert = UIAlertController(title: L10n.text("error.generic"), message: message, preferredStyle: .alert)

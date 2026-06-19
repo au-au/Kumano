@@ -18,15 +18,18 @@ final class AlbumListViewController: BaseViewController {
     var onCreate: (() -> Void)?
     var onJoin: (() -> Void)?
     var onOpen: ((Album) -> Void)?
+    var onShowInvite: ((Album) -> Void)?
 
     private let viewModel: AlbumListViewModel
     private let storage: AssetStorage
+    private let nearby: NearbySessionService
     private let tableView = UITableView(frame: .zero, style: .insetGrouped)
     private let emptyView = EmptyAlbumsView()
 
-    init(viewModel: AlbumListViewModel, storage: AssetStorage) {
+    init(viewModel: AlbumListViewModel, storage: AssetStorage, nearby: NearbySessionService) {
         self.viewModel = viewModel
         self.storage = storage
+        self.nearby = nearby
         super.init(nibName: nil, bundle: nil)
     }
 
@@ -93,7 +96,13 @@ extension AlbumListViewController: UITableViewDataSource, UITableViewDelegate {
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: AlbumCell.reuseID, for: indexPath) as! AlbumCell
-        cell.configure(album: viewModel.albums[indexPath.row], image: storage.image(at: viewModel.albums[indexPath.row].coverPath))
+        let album = viewModel.albums[indexPath.row]
+        cell.configure(
+            album: album,
+            image: storage.image(at: album.coverPath),
+            isActivelyHosting: nearby.activeHostedAlbumID == album.id
+        )
+        cell.onShowInvite = { [weak self] in self?.onShowInvite?(album) }
         return cell
     }
 
@@ -138,6 +147,8 @@ private final class AlbumCell: UITableViewCell {
     private let nameLabel = UILabel()
     private let detailLabel = UILabel()
     private let stateLabel = UILabel()
+    private let inviteButton = UIButton(type: .system)
+    var onShowInvite: (() -> Void)?
 
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -151,6 +162,7 @@ private final class AlbumCell: UITableViewCell {
         detailLabel.textColor = .secondaryLabel
         stateLabel.font = .preferredFont(forTextStyle: .caption1)
         stateLabel.textColor = .secondaryLabel
+        inviteButton.addTarget(self, action: #selector(inviteTapped), for: .touchUpInside)
         let labels = UIStackView(arrangedSubviews: [nameLabel, detailLabel, stateLabel])
         labels.axis = .vertical
         labels.spacing = 3
@@ -170,12 +182,37 @@ private final class AlbumCell: UITableViewCell {
     @available(*, unavailable)
     required init?(coder: NSCoder) { fatalError() }
 
-    func configure(album: Album, image: UIImage?) {
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        onShowInvite = nil
+    }
+
+    func configure(album: Album, image: UIImage?, isActivelyHosting: Bool) {
         cover.image = image ?? UIImage(systemName: "photo")
         cover.tintColor = .tertiaryLabel
         nameLabel.text = album.name
         detailLabel.text = L10n.text("album.summary", album.photos.count, album.members.count)
         let role = L10n.text(album.localRole == .host ? "role.host" : "role.participant")
-        stateLabel.text = "\(role) · \(album.connectionState.title)"
+        let state: ConnectionState = album.localRole == .host && !isActivelyHosting
+            ? .offline
+            : album.connectionState
+        stateLabel.text = "\(role) · \(state.title)"
+        if album.localRole == .host {
+            var configuration = UIButton.Configuration.plain()
+            configuration.image = UIImage(systemName: isActivelyHosting ? "qrcode" : "person.badge.plus")
+            inviteButton.configuration = configuration
+            inviteButton.accessibilityLabel = L10n.text(
+                isActivelyHosting ? "album.showInvite" : "album.startHosting"
+            )
+            accessoryType = .none
+            accessoryView = inviteButton
+        } else {
+            accessoryView = nil
+            accessoryType = .disclosureIndicator
+        }
+    }
+
+    @objc private func inviteTapped() {
+        onShowInvite?()
     }
 }

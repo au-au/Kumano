@@ -47,10 +47,15 @@ final class AppCoordinator {
 
     private func showAlbums(animated: Bool) {
         let viewModel = AlbumListViewModel(repository: environment.repository)
-        let controller = AlbumListViewController(viewModel: viewModel, storage: environment.assetStorage)
+        let controller = AlbumListViewController(
+            viewModel: viewModel,
+            storage: environment.assetStorage,
+            nearby: environment.nearby
+        )
         controller.onCreate = { [weak self] in self?.showCreateAlbum() }
         controller.onJoin = { [weak self] in self?.showJoinAlbum() }
-        controller.onOpen = { [weak self] album in self?.showAlbumDetail(album) }
+        controller.onOpen = { [weak self] album in self?.showAlbumDetail(album, replacingCurrent: false) }
+        controller.onShowInvite = { [weak self] album in self?.showHostLobby(album, replacingCurrent: false) }
         navigationController.setViewControllers([controller], animated: animated)
     }
 
@@ -58,11 +63,11 @@ final class AppCoordinator {
         guard let profile = environment.repository.profile else { return }
         let viewModel = CreateAlbumViewModel(repository: environment.repository, profile: profile)
         let controller = CreateAlbumViewController(viewModel: viewModel)
-        controller.onCreated = { [weak self] album in self?.showHostLobby(album) }
+        controller.onCreated = { [weak self] album in self?.showHostLobby(album, replacingCurrent: true) }
         navigationController.pushViewController(controller, animated: true)
     }
 
-    private func showHostLobby(_ album: Album) {
+    private func showHostLobby(_ album: Album, replacingCurrent: Bool) {
         guard let profile = environment.repository.profile else { return }
         let viewModel = HostLobbyViewModel(
             album: album,
@@ -72,8 +77,10 @@ final class AppCoordinator {
             nearby: environment.nearby
         )
         let controller = HostLobbyViewController(viewModel: viewModel)
-        controller.onOpenAlbum = { [weak self] album in self?.showAlbumDetail(album) }
-        navigationController.pushViewController(controller, animated: true)
+        controller.onOpenAlbum = { [weak self] album in
+            self?.showAlbumDetail(album, replacingCurrent: true)
+        }
+        show(controller, replacingCurrent: replacingCurrent)
     }
 
     private func showJoinAlbum() {
@@ -89,12 +96,12 @@ final class AppCoordinator {
         let controller = InitialSyncViewController(viewModel: viewModel)
         controller.onComplete = { [weak self] album in
             self?.navigationController.popToRootViewController(animated: false)
-            self?.showAlbumDetail(album)
+            self?.showAlbumDetail(album, replacingCurrent: false)
         }
         navigationController.pushViewController(controller, animated: true)
     }
 
-    private func showAlbumDetail(_ album: Album) {
+    private func showAlbumDetail(_ album: Album, replacingCurrent: Bool) {
         guard let profile = environment.repository.profile else { return }
         let viewModel = AlbumDetailViewModel(
             album: album,
@@ -105,10 +112,12 @@ final class AppCoordinator {
             nearby: environment.nearby
         )
         let controller = AlbumDetailViewController(viewModel: viewModel, storage: environment.assetStorage)
-        controller.onStartHosting = { [weak self] album in self?.showHostLobby(album) }
+        controller.onStartHosting = { [weak self] album in
+            self?.showHostLobby(album, replacingCurrent: true)
+        }
         controller.onOpenPhoto = { [weak self] photo, album in self?.showPhoto(photo, album: album) }
         controller.onShowTransfers = { [weak self] in self?.showTransfers() }
-        navigationController.pushViewController(controller, animated: true)
+        show(controller, replacingCurrent: replacingCurrent)
     }
 
     private func showPhoto(_ photo: PhotoItem, album: Album) {
@@ -128,5 +137,16 @@ final class AppCoordinator {
     private func showTransfers() {
         let viewModel = TransferCenterViewModel(repository: environment.repository)
         navigationController.pushViewController(TransferCenterViewController(viewModel: viewModel), animated: true)
+    }
+
+    private func show(_ controller: UIViewController, replacingCurrent: Bool) {
+        guard replacingCurrent, navigationController.viewControllers.count > 1 else {
+            navigationController.pushViewController(controller, animated: true)
+            return
+        }
+        var controllers = navigationController.viewControllers
+        controllers.removeLast()
+        controllers.append(controller)
+        navigationController.setViewControllers(controllers, animated: true)
     }
 }
