@@ -1,0 +1,4 @@
+"NSLocalNetworkUsageDescription" = "Kumano uses the local network to find nearby friends and share album photos.";
+"NSCameraUsageDescription" = "Kumano uses the camera to scan nearby album QR codes.";
+"NSPhotoLibraryUsageDescription" = "Kumano needs access to the photos you choose for a shared album.";
+"NSPhotoLibraryAddUsageDescription" = "Kumano saves shared original photos back to your photo library when you ask.";

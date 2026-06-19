@@ -15,11 +15,24 @@
 					<string>Default Configuration</string>
 					<key>UISceneDelegateClassName</key>
 					<string>$(PRODUCT_MODULE_NAME).SceneDelegate</string>
-					<key>UISceneStoryboardFile</key>
-					<string>Main</string>
 				</dict>
 			</array>
 		</dict>
 	</dict>
+	<key>UILaunchScreen</key>
+	<dict/>
+	<key>NSLocalNetworkUsageDescription</key>
+	<string>Kumano uses the local network to find nearby friends and share album photos.</string>
+	<key>NSBonjourServices</key>
+	<array>
+		<string>_kumano-album._tcp</string>
+		<string>_kumano-album._udp</string>
+	</array>
+	<key>NSCameraUsageDescription</key>
+	<string>Kumano uses the camera to scan nearby album QR codes.</string>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>Kumano needs access to the photos you choose for a shared album.</string>
+	<key>NSPhotoLibraryAddUsageDescription</key>
+	<string>Kumano saves shared original photos back to your photo library when you ask.</string>
 </dict>
 </plist>

@@ -7,27 +7,59 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		829E77C02FE57B4D007F1FE0 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 829E77D02FE57B4D007F1FE0 /* AppDelegate.swift */; };
-		829E77C12FE57B4D007F1FE0 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 829E77D12FE57B4D007F1FE0 /* SceneDelegate.swift */; };
-		829E77C22FE57B4D007F1FE0 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 829E77D22FE57B4D007F1FE0 /* ViewController.swift */; };
 		829E77C32FE57B4D007F1FE0 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 829E77D32FE57B4D007F1FE0 /* Assets.xcassets */; };
-		829E77C42FE57B4D007F1FE0 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 829E77D82FE57B4D007F1FE0 /* LaunchScreen.storyboard */; };
-		829E77C52FE57B4D007F1FE0 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 829E77D92FE57B4D007F1FE0 /* Main.storyboard */; };
 		9C20C67F160B67333E89A203 /* libPods-Kumano.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D6AFA89939D92516D1A20999 /* libPods-Kumano.a */; };
+		B00000000000000000000001 /* AppCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = F00000000000000000000001 /* AppCoordinator.swift */; };
+		B00000000000000000000002 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F00000000000000000000002 /* AppDelegate.swift */; };
+		B00000000000000000000003 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F00000000000000000000003 /* SceneDelegate.swift */; };
+		B00000000000000000000004 /* AssetStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = F00000000000000000000004 /* AssetStorage.swift */; };
+		B00000000000000000000005 /* AppDesignSystem.swift in Sources */ = {isa = PBXBuildFile; fileRef = F00000000000000000000005 /* AppDesignSystem.swift */; };
+		B00000000000000000000006 /* L10n.swift in Sources */ = {isa = PBXBuildFile; fileRef = F00000000000000000000006 /* L10n.swift */; };
+		B00000000000000000000007 /* Models.swift in Sources */ = {isa = PBXBuildFile; fileRef = F00000000000000000000007 /* Models.swift */; };
+		B00000000000000000000008 /* NearbySessionService.swift in Sources */ = {isa = PBXBuildFile; fileRef = F00000000000000000000008 /* NearbySessionService.swift */; };
+		B00000000000000000000009 /* AppRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = F00000000000000000000009 /* AppRepository.swift */; };
+		B0000000000000000000000A /* PhotoLibraryService.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0000000000000000000000A /* PhotoLibraryService.swift */; };
+		B0000000000000000000000B /* AlbumDetailModule.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0000000000000000000000B /* AlbumDetailModule.swift */; };
+		B0000000000000000000000C /* AlbumListModule.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0000000000000000000000C /* AlbumListModule.swift */; };
+		B0000000000000000000000D /* CreateAlbumModule.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0000000000000000000000D /* CreateAlbumModule.swift */; };
+		B0000000000000000000000E /* HostLobbyModule.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0000000000000000000000E /* HostLobbyModule.swift */; };
+		B0000000000000000000000F /* InitialSyncModule.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0000000000000000000000F /* InitialSyncModule.swift */; };
+		B00000000000000000000010 /* JoinAlbumModule.swift in Sources */ = {isa = PBXBuildFile; fileRef = F00000000000000000000010 /* JoinAlbumModule.swift */; };
+		B00000000000000000000011 /* OnboardingModule.swift in Sources */ = {isa = PBXBuildFile; fileRef = F00000000000000000000011 /* OnboardingModule.swift */; };
+		B00000000000000000000012 /* PhotoViewerModule.swift in Sources */ = {isa = PBXBuildFile; fileRef = F00000000000000000000012 /* PhotoViewerModule.swift */; };
+		B00000000000000000000013 /* TransferCenterModule.swift in Sources */ = {isa = PBXBuildFile; fileRef = F00000000000000000000013 /* TransferCenterModule.swift */; };
+		B00000000000000000000014 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = G00000000000000000000020 /* Localizable.strings */; };
+		B00000000000000000000015 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = G00000000000000000000021 /* InfoPlist.strings */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		05630088A105120D84A084E4 /* Pods-Kumano.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Kumano.release.xcconfig"; path = "Target Support Files/Pods-Kumano/Pods-Kumano.release.xcconfig"; sourceTree = "<group>"; };
 		829E77A02FE57B4C007F1FE0 /* Kumano.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Kumano.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		829E77D02FE57B4D007F1FE0 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		829E77D12FE57B4D007F1FE0 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		829E77D22FE57B4D007F1FE0 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		829E77D32FE57B4D007F1FE0 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		829E77D42FE57B4D007F1FE0 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		829E77D52FE57B4D007F1FE0 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
-		829E77D62FE57B4D007F1FE0 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		84BD4C5AF1AA7442CBDFE581 /* Pods-Kumano.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Kumano.debug.xcconfig"; path = "Target Support Files/Pods-Kumano/Pods-Kumano.debug.xcconfig"; sourceTree = "<group>"; };
 		D6AFA89939D92516D1A20999 /* libPods-Kumano.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Kumano.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		F00000000000000000000001 /* AppCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppCoordinator.swift; sourceTree = "<group>"; };
+		F00000000000000000000002 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		F00000000000000000000003 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
+		F00000000000000000000004 /* AssetStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AssetStorage.swift; sourceTree = "<group>"; };
+		F00000000000000000000005 /* AppDesignSystem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDesignSystem.swift; sourceTree = "<group>"; };
+		F00000000000000000000006 /* L10n.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = L10n.swift; sourceTree = "<group>"; };
+		F00000000000000000000007 /* Models.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Models.swift; sourceTree = "<group>"; };
+		F00000000000000000000008 /* NearbySessionService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NearbySessionService.swift; sourceTree = "<group>"; };
+		F00000000000000000000009 /* AppRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppRepository.swift; sourceTree = "<group>"; };
+		F0000000000000000000000A /* PhotoLibraryService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoLibraryService.swift; sourceTree = "<group>"; };
+		F0000000000000000000000B /* AlbumDetailModule.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlbumDetailModule.swift; sourceTree = "<group>"; };
+		F0000000000000000000000C /* AlbumListModule.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlbumListModule.swift; sourceTree = "<group>"; };
+		F0000000000000000000000D /* CreateAlbumModule.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateAlbumModule.swift; sourceTree = "<group>"; };
+		F0000000000000000000000E /* HostLobbyModule.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HostLobbyModule.swift; sourceTree = "<group>"; };
+		F0000000000000000000000F /* InitialSyncModule.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InitialSyncModule.swift; sourceTree = "<group>"; };
+		F00000000000000000000010 /* JoinAlbumModule.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JoinAlbumModule.swift; sourceTree = "<group>"; };
+		F00000000000000000000011 /* OnboardingModule.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingModule.swift; sourceTree = "<group>"; };
+		F00000000000000000000012 /* PhotoViewerModule.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoViewerModule.swift; sourceTree = "<group>"; };
+		F00000000000000000000013 /* TransferCenterModule.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransferCenterModule.swift; sourceTree = "<group>"; };
+		F00000000000000000000020 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
+		F00000000000000000000021 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -71,15 +103,151 @@
 		829E77A22FE57B4C007F1FE0 /* Kumano */ = {
 			isa = PBXGroup;
 			children = (
-				829E77D02FE57B4D007F1FE0 /* AppDelegate.swift */,
-				829E77D12FE57B4D007F1FE0 /* SceneDelegate.swift */,
-				829E77D22FE57B4D007F1FE0 /* ViewController.swift */,
+				G00000000000000000000001 /* App */,
+				G00000000000000000000002 /* Core */,
+				G00000000000000000000003 /* Modules */,
 				829E77D32FE57B4D007F1FE0 /* Assets.xcassets */,
-				829E77D82FE57B4D007F1FE0 /* LaunchScreen.storyboard */,
-				829E77D92FE57B4D007F1FE0 /* Main.storyboard */,
+				G00000000000000000000020 /* Localizable.strings */,
+				G00000000000000000000021 /* InfoPlist.strings */,
 				829E77D42FE57B4D007F1FE0 /* Info.plist */,
 			);
 			path = Kumano;
+			sourceTree = "<group>";
+		};
+		G00000000000000000000001 /* App */ = {
+			isa = PBXGroup;
+			children = (
+				F00000000000000000000001 /* AppCoordinator.swift */,
+				F00000000000000000000002 /* AppDelegate.swift */,
+				F00000000000000000000003 /* SceneDelegate.swift */,
+			);
+			path = App;
+			sourceTree = "<group>";
+		};
+		G00000000000000000000002 /* Core */ = {
+			isa = PBXGroup;
+			children = (
+				G00000000000000000000004 /* AssetStorage */,
+				G00000000000000000000005 /* DesignSystem */,
+				G00000000000000000000006 /* Localization */,
+				G00000000000000000000007 /* Models */,
+				G00000000000000000000008 /* Nearby */,
+				G00000000000000000000009 /* Persistence */,
+				G0000000000000000000000A /* PhotoLibrary */,
+			);
+			path = Core;
+			sourceTree = "<group>";
+		};
+		G00000000000000000000003 /* Modules */ = {
+			isa = PBXGroup;
+			children = (
+				G0000000000000000000000B /* AlbumDetail */,
+				G0000000000000000000000C /* AlbumList */,
+				G0000000000000000000000D /* CreateAlbum */,
+				G0000000000000000000000E /* HostLobby */,
+				G0000000000000000000000F /* InitialSync */,
+				G00000000000000000000010 /* JoinAlbum */,
+				G00000000000000000000011 /* Onboarding */,
+				G00000000000000000000012 /* PhotoViewer */,
+				G00000000000000000000013 /* TransferCenter */,
+			);
+			path = Modules;
+			sourceTree = "<group>";
+		};
+		G00000000000000000000004 /* AssetStorage */ = {
+			isa = PBXGroup;
+			children = (F00000000000000000000004 /* AssetStorage.swift */,);
+			path = AssetStorage;
+			sourceTree = "<group>";
+		};
+		G00000000000000000000005 /* DesignSystem */ = {
+			isa = PBXGroup;
+			children = (F00000000000000000000005 /* AppDesignSystem.swift */,);
+			path = DesignSystem;
+			sourceTree = "<group>";
+		};
+		G00000000000000000000006 /* Localization */ = {
+			isa = PBXGroup;
+			children = (F00000000000000000000006 /* L10n.swift */,);
+			path = Localization;
+			sourceTree = "<group>";
+		};
+		G00000000000000000000007 /* Models */ = {
+			isa = PBXGroup;
+			children = (F00000000000000000000007 /* Models.swift */,);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		G00000000000000000000008 /* Nearby */ = {
+			isa = PBXGroup;
+			children = (F00000000000000000000008 /* NearbySessionService.swift */,);
+			path = Nearby;
+			sourceTree = "<group>";
+		};
+		G00000000000000000000009 /* Persistence */ = {
+			isa = PBXGroup;
+			children = (F00000000000000000000009 /* AppRepository.swift */,);
+			path = Persistence;
+			sourceTree = "<group>";
+		};
+		G0000000000000000000000A /* PhotoLibrary */ = {
+			isa = PBXGroup;
+			children = (F0000000000000000000000A /* PhotoLibraryService.swift */,);
+			path = PhotoLibrary;
+			sourceTree = "<group>";
+		};
+		G0000000000000000000000B /* AlbumDetail */ = {
+			isa = PBXGroup;
+			children = (F0000000000000000000000B /* AlbumDetailModule.swift */,);
+			path = AlbumDetail;
+			sourceTree = "<group>";
+		};
+		G0000000000000000000000C /* AlbumList */ = {
+			isa = PBXGroup;
+			children = (F0000000000000000000000C /* AlbumListModule.swift */,);
+			path = AlbumList;
+			sourceTree = "<group>";
+		};
+		G0000000000000000000000D /* CreateAlbum */ = {
+			isa = PBXGroup;
+			children = (F0000000000000000000000D /* CreateAlbumModule.swift */,);
+			path = CreateAlbum;
+			sourceTree = "<group>";
+		};
+		G0000000000000000000000E /* HostLobby */ = {
+			isa = PBXGroup;
+			children = (F0000000000000000000000E /* HostLobbyModule.swift */,);
+			path = HostLobby;
+			sourceTree = "<group>";
+		};
+		G0000000000000000000000F /* InitialSync */ = {
+			isa = PBXGroup;
+			children = (F0000000000000000000000F /* InitialSyncModule.swift */,);
+			path = InitialSync;
+			sourceTree = "<group>";
+		};
+		G00000000000000000000010 /* JoinAlbum */ = {
+			isa = PBXGroup;
+			children = (F00000000000000000000010 /* JoinAlbumModule.swift */,);
+			path = JoinAlbum;
+			sourceTree = "<group>";
+		};
+		G00000000000000000000011 /* Onboarding */ = {
+			isa = PBXGroup;
+			children = (F00000000000000000000011 /* OnboardingModule.swift */,);
+			path = Onboarding;
+			sourceTree = "<group>";
+		};
+		G00000000000000000000012 /* PhotoViewer */ = {
+			isa = PBXGroup;
+			children = (F00000000000000000000012 /* PhotoViewerModule.swift */,);
+			path = PhotoViewer;
+			sourceTree = "<group>";
+		};
+		G00000000000000000000013 /* TransferCenter */ = {
+			isa = PBXGroup;
+			children = (F00000000000000000000013 /* TransferCenterModule.swift */,);
+			path = TransferCenter;
 			sourceTree = "<group>";
 		};
 		FA5A23D5A8CB6C12FF0B4C2D /* Pods */ = {
@@ -154,8 +322,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				829E77C32FE57B4D007F1FE0 /* Assets.xcassets in Resources */,
-				829E77C42FE57B4D007F1FE0 /* LaunchScreen.storyboard in Resources */,
-				829E77C52FE57B4D007F1FE0 /* Main.storyboard in Resources */,
+				B00000000000000000000014 /* Localizable.strings in Resources */,
+				B00000000000000000000015 /* InfoPlist.strings in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -208,29 +376,45 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				829E77C02FE57B4D007F1FE0 /* AppDelegate.swift in Sources */,
-				829E77C12FE57B4D007F1FE0 /* SceneDelegate.swift in Sources */,
-				829E77C22FE57B4D007F1FE0 /* ViewController.swift in Sources */,
+				B00000000000000000000001 /* AppCoordinator.swift in Sources */,
+				B00000000000000000000002 /* AppDelegate.swift in Sources */,
+				B00000000000000000000003 /* SceneDelegate.swift in Sources */,
+				B00000000000000000000004 /* AssetStorage.swift in Sources */,
+				B00000000000000000000005 /* AppDesignSystem.swift in Sources */,
+				B00000000000000000000006 /* L10n.swift in Sources */,
+				B00000000000000000000007 /* Models.swift in Sources */,
+				B00000000000000000000008 /* NearbySessionService.swift in Sources */,
+				B00000000000000000000009 /* AppRepository.swift in Sources */,
+				B0000000000000000000000A /* PhotoLibraryService.swift in Sources */,
+				B0000000000000000000000B /* AlbumDetailModule.swift in Sources */,
+				B0000000000000000000000C /* AlbumListModule.swift in Sources */,
+				B0000000000000000000000D /* CreateAlbumModule.swift in Sources */,
+				B0000000000000000000000E /* HostLobbyModule.swift in Sources */,
+				B0000000000000000000000F /* InitialSyncModule.swift in Sources */,
+				B00000000000000000000010 /* JoinAlbumModule.swift in Sources */,
+				B00000000000000000000011 /* OnboardingModule.swift in Sources */,
+				B00000000000000000000012 /* PhotoViewerModule.swift in Sources */,
+				B00000000000000000000013 /* TransferCenterModule.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXVariantGroup section */
-		829E77D82FE57B4D007F1FE0 /* LaunchScreen.storyboard */ = {
+		G00000000000000000000020 /* Localizable.strings */ = {
 			isa = PBXVariantGroup;
 			children = (
-				829E77D52FE57B4D007F1FE0 /* Base */,
+				F00000000000000000000020 /* en */,
 			);
-			name = LaunchScreen.storyboard;
+			name = Localizable.strings;
 			sourceTree = "<group>";
 		};
-		829E77D92FE57B4D007F1FE0 /* Main.storyboard */ = {
+		G00000000000000000000021 /* InfoPlist.strings */ = {
 			isa = PBXVariantGroup;
 			children = (
-				829E77D62FE57B4D007F1FE0 /* Base */,
+				F00000000000000000000021 /* en */,
 			);
-			name = Main.storyboard;
+			name = InfoPlist.strings;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */
@@ -248,8 +432,6 @@
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Kumano/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
-				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
-				INFOPLIST_KEY_UIMainStoryboardFile = Main;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -281,8 +463,6 @@
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Kumano/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
-				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
-				INFOPLIST_KEY_UIMainStoryboardFile = Main;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				LD_RUNPATH_SEARCH_PATHS = (
