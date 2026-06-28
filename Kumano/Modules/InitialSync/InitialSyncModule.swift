@@ -7,10 +7,14 @@ final class InitialSyncViewModel: NearbySessionServiceDelegate {
     var onError: ((String) -> Void)?
     private let nearby: NearbySessionService
     private let repository: AppRepository
+    private let storage: AssetStorage
+    private var syncedAlbum: Album?
+    private var pendingThumbnails: [UUID: URL] = [:]
 
-    init(nearby: NearbySessionService, repository: AppRepository) {
+    init(nearby: NearbySessionService, repository: AppRepository, storage: AssetStorage) {
         self.nearby = nearby
         self.repository = repository
+        self.storage = storage
     }
 
     func start() {
@@ -30,13 +34,53 @@ final class InitialSyncViewModel: NearbySessionServiceDelegate {
             album.localRole = .participant
             album.connectionState = .connected
             album.updatedAt = Date()
+            album.photos = album.photos.map { $0.remoteMetadataCopy() }
+            applyPendingThumbnails(to: &album)
+            syncedAlbum = album
             repository.saveAlbum(album)
             onProgress?(1, L10n.text("sync.ready"))
             DispatchQueue.main.asyncAfter(deadline: .now() + 0.35) { self.onComplete?(album) }
+        case .resourceReceived(let photoID, let kind, let url):
+            guard kind == .thumbnail else {
+                try? FileManager.default.removeItem(at: url)
+                return
+            }
+            guard var album = syncedAlbum else {
+                pendingThumbnails[photoID] = url
+                return
+            }
+            storeThumbnail(from: url, photoID: photoID, in: &album)
+            syncedAlbum = album
+            repository.saveAlbum(album)
         case .error(let message):
             onError?(message)
         default:
             break
+        }
+    }
+
+    private func applyPendingThumbnails(to album: inout Album) {
+        for (photoID, url) in pendingThumbnails {
+            storeThumbnail(from: url, photoID: photoID, in: &album)
+        }
+        pendingThumbnails.removeAll()
+    }
+
+    private func storeThumbnail(from url: URL, photoID: UUID, in album: inout Album) {
+        guard let index = album.photos.firstIndex(where: { $0.id == photoID }) else {
+            try? FileManager.default.removeItem(at: url)
+            return
+        }
+        do {
+            album.photos[index].thumbnailPath = try storage.storeResource(
+                from: url,
+                albumID: album.id,
+                photoID: photoID,
+                filename: "thumbnail.jpg"
+            )
+            try? FileManager.default.removeItem(at: url)
+        } catch {
+            onError?(error.localizedDescription)
         }
     }
 }

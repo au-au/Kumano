@@ -67,6 +67,17 @@ struct PhotoItem: Identifiable, Codable, Hashable {
     var contentHash: String?
 }
 
+extension PhotoItem {
+    func remoteMetadataCopy() -> PhotoItem {
+        var copy = self
+        copy.thumbnailPath = nil
+        copy.photoResourcePath = nil
+        copy.pairedVideoPath = nil
+        copy.assetState = .thumbnailOnly
+        return copy
+    }
+}
+
 struct Album: Identifiable, Codable, Hashable {
     let id: UUID
     var name: String

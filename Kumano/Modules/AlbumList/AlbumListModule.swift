@@ -19,6 +19,7 @@ final class AlbumListViewController: BaseViewController {
     var onJoin: (() -> Void)?
     var onOpen: ((Album) -> Void)?
     var onShowInvite: ((Album) -> Void)?
+    var onShowSettings: (() -> Void)?
 
     private let viewModel: AlbumListViewModel
     private let storage: AssetStorage
@@ -40,6 +41,14 @@ final class AlbumListViewController: BaseViewController {
         super.viewDidLoad()
         title = L10n.text("albums.title")
         navigationController?.navigationBar.prefersLargeTitles = true
+        let settingsItem = UIBarButtonItem(
+            image: UIImage(systemName: "person.crop.circle"),
+            style: .plain,
+            target: self,
+            action: #selector(settingsTapped)
+        )
+        settingsItem.accessibilityLabel = L10n.text("settings.open")
+        navigationItem.rightBarButtonItem = settingsItem
         tableView.register(AlbumCell.self, forCellReuseIdentifier: AlbumCell.reuseID)
         tableView.dataSource = self
         tableView.delegate = self
@@ -87,6 +96,7 @@ final class AlbumListViewController: BaseViewController {
 
     @objc private func createTapped() { onCreate?() }
     @objc private func joinTapped() { onJoin?() }
+    @objc private func settingsTapped() { onShowSettings?() }
 }
 
 extension AlbumListViewController: UITableViewDataSource, UITableViewDelegate {

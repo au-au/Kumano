@@ -28,6 +28,7 @@
 		B00000000000000000000011 /* OnboardingModule.swift in Sources */ = {isa = PBXBuildFile; fileRef = F00000000000000000000011 /* OnboardingModule.swift */; };
 		B00000000000000000000012 /* PhotoViewerModule.swift in Sources */ = {isa = PBXBuildFile; fileRef = F00000000000000000000012 /* PhotoViewerModule.swift */; };
 		B00000000000000000000013 /* TransferCenterModule.swift in Sources */ = {isa = PBXBuildFile; fileRef = F00000000000000000000013 /* TransferCenterModule.swift */; };
+		B00000000000000000000016 /* SettingsModule.swift in Sources */ = {isa = PBXBuildFile; fileRef = F00000000000000000000016 /* SettingsModule.swift */; };
 		B00000000000000000000014 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = G00000000000000000000020 /* Localizable.strings */; };
 		B00000000000000000000015 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = G00000000000000000000021 /* InfoPlist.strings */; };
 /* End PBXBuildFile section */
@@ -58,6 +59,7 @@
 		F00000000000000000000011 /* OnboardingModule.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingModule.swift; sourceTree = "<group>"; };
 		F00000000000000000000012 /* PhotoViewerModule.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoViewerModule.swift; sourceTree = "<group>"; };
 		F00000000000000000000013 /* TransferCenterModule.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransferCenterModule.swift; sourceTree = "<group>"; };
+		F00000000000000000000016 /* SettingsModule.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsModule.swift; sourceTree = "<group>"; };
 		F00000000000000000000020 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		F00000000000000000000021 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -150,6 +152,7 @@
 				G00000000000000000000011 /* Onboarding */,
 				G00000000000000000000012 /* PhotoViewer */,
 				G00000000000000000000013 /* TransferCenter */,
+				G00000000000000000000016 /* Settings */,
 			);
 			path = Modules;
 			sourceTree = "<group>";
@@ -248,6 +251,12 @@
 			isa = PBXGroup;
 			children = (F00000000000000000000013 /* TransferCenterModule.swift */,);
 			path = TransferCenter;
+			sourceTree = "<group>";
+		};
+		G00000000000000000000016 /* Settings */ = {
+			isa = PBXGroup;
+			children = (F00000000000000000000016 /* SettingsModule.swift */,);
+			path = Settings;
 			sourceTree = "<group>";
 		};
 		FA5A23D5A8CB6C12FF0B4C2D /* Pods */ = {
@@ -395,6 +404,7 @@
 				B00000000000000000000011 /* OnboardingModule.swift in Sources */,
 				B00000000000000000000012 /* PhotoViewerModule.swift in Sources */,
 				B00000000000000000000013 /* TransferCenterModule.swift in Sources */,
+				B00000000000000000000016 /* SettingsModule.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

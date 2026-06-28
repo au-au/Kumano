@@ -7,6 +7,12 @@
 "albums.empty.subtitle" = "Create an album or join one nearby.";
 "albums.create" = "Create Album";
 "albums.join" = "Join Album";
+"settings.open" = "Profile and Settings";
+"settings.title" = "Profile & Settings";
+"settings.personalInformation" = "Personal Information";
+"settings.nickname" = "Nickname";
+"settings.nickname.placeholder" = "Your nickname";
+"settings.nickname.footer" = "Friends nearby will see this name when you share photos.";
 "album.name" = "Album Name";
 "album.tripDates" = "Trip Dates";
 "album.noPhotos" = "No photos yet";

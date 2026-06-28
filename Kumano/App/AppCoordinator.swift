@@ -56,7 +56,19 @@ final class AppCoordinator {
         controller.onJoin = { [weak self] in self?.showJoinAlbum() }
         controller.onOpen = { [weak self] album in self?.showAlbumDetail(album, replacingCurrent: false) }
         controller.onShowInvite = { [weak self] album in self?.showHostLobby(album, replacingCurrent: false) }
+        controller.onShowSettings = { [weak self] in self?.showSettings() }
         navigationController.setViewControllers([controller], animated: animated)
+    }
+
+    private func showSettings() {
+        guard let profile = environment.repository.profile else { return }
+        let viewModel = SettingsViewModel(repository: environment.repository, profile: profile)
+        let controller = SettingsViewController(viewModel: viewModel)
+        controller.onSaved = { [weak self, weak controller] in
+            guard let controller else { return }
+            self?.navigationController.popViewController(animated: true)
+        }
+        navigationController.pushViewController(controller, animated: true)
     }
 
     private func showCreateAlbum() {
@@ -92,7 +104,11 @@ final class AppCoordinator {
     }
 
     private func showInitialSync() {
-        let viewModel = InitialSyncViewModel(nearby: environment.nearby, repository: environment.repository)
+        let viewModel = InitialSyncViewModel(
+            nearby: environment.nearby,
+            repository: environment.repository,
+            storage: environment.assetStorage
+        )
         let controller = InitialSyncViewController(viewModel: viewModel)
         controller.onComplete = { [weak self] album in
             self?.navigationController.popToRootViewController(animated: false)

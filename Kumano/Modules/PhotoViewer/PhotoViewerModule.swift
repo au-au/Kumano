@@ -29,7 +29,9 @@ final class PhotoViewerViewModel {
     }
 
     var hasOriginal: Bool {
-        photo.assetState == .originalAvailable && storage.absoluteURL(for: photo.photoResourcePath) != nil
+        guard photo.assetState == .originalAvailable,
+              let url = storage.absoluteURL(for: photo.photoResourcePath) else { return false }
+        return FileManager.default.fileExists(atPath: url.path)
     }
 
     func requestLivePhoto(completion: @escaping (PHLivePhoto?) -> Void) {

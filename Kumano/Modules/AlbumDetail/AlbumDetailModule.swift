@@ -139,7 +139,9 @@ final class AlbumDetailViewModel: NearbySessionServiceDelegate {
         switch event {
         case .albumReceived(let incoming):
             let existingIDs = Set(album.photos.map(\.id))
-            let additions = incoming.photos.filter { !existingIDs.contains($0.id) }
+            let additions = incoming.photos
+                .filter { !existingIDs.contains($0.id) }
+                .map { $0.remoteMetadataCopy() }
             album.photos.append(contentsOf: additions)
             let memberIDs = Set(album.members.map(\.id))
             album.members.append(contentsOf: incoming.members.filter { !memberIDs.contains($0.id) })
@@ -156,6 +158,7 @@ final class AlbumDetailViewModel: NearbySessionServiceDelegate {
             if isHost {
                 album.members = [album.members.first].compactMap { $0 } + peers
                 repository.saveAlbum(album)
+                sendExistingThumbnails()
                 onUpdate?()
             }
         case .error(let message):
@@ -211,6 +214,14 @@ final class AlbumDetailViewModel: NearbySessionServiceDelegate {
             }
         }
     }
+
+    private func sendExistingThumbnails() {
+        for photo in album.photos {
+            if let thumbnailURL = storage.absoluteURL(for: photo.thumbnailPath) {
+                nearby.sendResource(at: thumbnailURL, photoID: photo.id, kind: .thumbnail, to: nil)
+            }
+        }
+    }
 }
 
 final class AlbumDetailViewController: BaseViewController {
@@ -227,6 +238,7 @@ final class AlbumDetailViewController: BaseViewController {
     private let offlineBanner = UILabel()
     private let filterButton = UIButton(type: .system)
     private let activity = UIActivityIndicatorView(style: .medium)
+    private let gridColumnCount: CGFloat = 3
 
     init(viewModel: AlbumDetailViewModel, storage: AssetStorage) {
         self.viewModel = viewModel
@@ -295,6 +307,7 @@ final class AlbumDetailViewController: BaseViewController {
 
     private func configureCollection() {
         collectionView.backgroundColor = .clear
+        collectionView.semanticContentAttribute = .forceLeftToRight
         collectionView.dataSource = self
         collectionView.delegate = self
         collectionView.contentInset.bottom = 100
@@ -481,7 +494,14 @@ extension AlbumDetailViewController: UICollectionViewDataSource, UICollectionVie
         layout collectionViewLayout: UICollectionViewLayout,
         sizeForItemAt indexPath: IndexPath
     ) -> CGSize {
-        let width = floor((collectionView.bounds.width - 4) / 3)
+        guard let layout = collectionViewLayout as? UICollectionViewFlowLayout else {
+            let width = floor(collectionView.bounds.width / gridColumnCount)
+            return CGSize(width: width, height: width)
+        }
+        let horizontalInsets = layout.sectionInset.left + layout.sectionInset.right
+        let horizontalSpacing = layout.minimumInteritemSpacing * (gridColumnCount - 1)
+        let availableWidth = collectionView.bounds.width - horizontalInsets - horizontalSpacing
+        let width = floor(availableWidth / gridColumnCount)
         return CGSize(width: width, height: width)
     }
 

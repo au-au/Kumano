@@ -68,7 +68,10 @@ final class HostLobbyViewModel: NearbySessionServiceDelegate {
             onUpdate?()
         case .albumReceived(let incoming):
             let existingIDs = Set(album.photos.map(\.id))
-            album.photos.append(contentsOf: incoming.photos.filter { !existingIDs.contains($0.id) })
+            let additions = incoming.photos
+                .filter { !existingIDs.contains($0.id) }
+                .map { $0.remoteMetadataCopy() }
+            album.photos.append(contentsOf: additions)
             album.updatedAt = Date()
             repository.saveAlbum(album)
             nearby.send(album: album)
